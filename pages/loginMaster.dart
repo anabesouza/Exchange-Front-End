@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../provider/userProvider.dart';
+
 
 class loginMaster extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
@@ -18,7 +20,7 @@ class loginMaster extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Olá!',
+                  'Olá instituição,',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -38,7 +40,7 @@ class loginMaster extends StatelessWidget {
                   controller: loginController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelText: 'Usuário',
+                    labelText: 'Login',
                     labelStyle: TextStyle(color: Colors.orange),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.orange),
@@ -73,10 +75,12 @@ class loginMaster extends StatelessWidget {
                       final password = senhaController.text;
 
                       if (name.isEmpty || password.isEmpty) {
+                        // Validar os campos
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Preencha todos os campos')),
                         );
                       } else {
+                        // Realiza o login
                         final userProvider = Provider.of<UserProvider>(context, listen: false);
                         userProvider.loginMaster(name, password).then((_) {
                           final message = userProvider.userMessage;
