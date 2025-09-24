@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/userProvider.dart';
-import 'pages/loginMaster.dart'; // <-- ajuste o caminho conforme sua pasta
+import 'pages/loginMaster.dart';
 
 void main() {
   runApp(
@@ -28,7 +26,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class loginMaster extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
@@ -45,7 +42,7 @@ class loginMaster extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Olá instituição,',
+                  'Seja Bem-Vindo!',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -65,7 +62,7 @@ class loginMaster extends StatelessWidget {
                   controller: loginController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelText: 'Login',
+                    labelText: 'Usuário',
                     labelStyle: TextStyle(color: Colors.orange),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.orange),
