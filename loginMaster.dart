@@ -1,7 +1,6 @@
+import 'package:exchange_project/provider/userProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../provider/userProvider.dart';
 
 
 class loginMaster extends StatelessWidget {
@@ -20,7 +19,7 @@ class loginMaster extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Olá instituição,',
+                  'Olá!',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -40,7 +39,7 @@ class loginMaster extends StatelessWidget {
                   controller: loginController,
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    labelText: 'Login',
+                    labelText: 'Usuário',
                     labelStyle: TextStyle(color: Colors.orange),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.orange),
@@ -71,18 +70,16 @@ class loginMaster extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      final name = loginController.text;
+                      final user_name = loginController.text;
                       final password = senhaController.text;
 
-                      if (name.isEmpty || password.isEmpty) {
-                        // Validar os campos
+                      if (user_name.isEmpty || password.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text('Preencha todos os campos')),
                         );
                       } else {
-                        // Realiza o login
                         final userProvider = Provider.of<UserProvider>(context, listen: false);
-                        userProvider.loginMaster(name, password).then((_) {
+                        userProvider.loginMaster(user_name, password).then((_) {
                           final message = userProvider.userMessage;
                           if (message != null) {
                             ScaffoldMessenger.of(context).showSnackBar(
