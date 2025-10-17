@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/userProvider.dart';
 import 'pages/loginMaster.dart';
+import 'pages/telaInstituicoes.dart';
 
 void main() {
   runApp(
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Exchange 🎓',
       theme: ThemeData.dark(),
-      home: loginMaster(), // Tela inicial
+      home: loginMaster(),
     );
   }
 }
@@ -93,7 +94,7 @@ class loginMaster extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Ação de login vai aqui
+                      // ACAO BACKEND
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.orange,
