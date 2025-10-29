@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'provider/userProvider.dart';
-import 'pages/loginMaster.dart'; // <-- ajuste o caminho conforme sua pasta
+import 'userProvider.dart';
+import 'pages/homePage.dart';
+import 'pages/telaInstituicoes.dart';
+
 
 void main() {
   runApp(
@@ -17,13 +17,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Exchange 🎓',
+      title: 'Exchange',
       theme: ThemeData.dark(),
-      home: loginMaster(), // Tela inicial
+      home: loginMaster(),
     );
   }
 }
@@ -32,6 +34,10 @@ class MyApp extends StatelessWidget {
 class loginMaster extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
+
+  loginMaster({super.key});
+
+  get style => null;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,7 @@ class loginMaster extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Olá instituição,',
+                  'Olá!',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -91,28 +97,48 @@ class loginMaster extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 32),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Ação de login vai aqui
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    child: Text(
-                      'Acessar',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+                    final name = loginController.text.trim();
+                    final password = senhaController.text.trim();
+
+                    await userProvider.loginMaster(name, password);
+
+                    final message = userProvider.userMessage;
+
+                    if (message != null && message.isNotEmpty) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(message)),
+                        );
+                      });
+                    }
+
+                    if (message == "Login realizado com sucesso!") {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => telaInstituicoes()),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                  ),
+                  child: Text(
+                    'Acessar',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                ),
+              ), ]
                     ),
                   ),
                 ),
-              ],
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 }
